@@ -3,12 +3,10 @@ package cl.coopeuch.tecnico.controller;
 import cl.coopeuch.tecnico.dto.TareaMensaje;
 import cl.coopeuch.tecnico.dto.TareaMensajeList;
 import cl.coopeuch.tecnico.dto.TareaRequest;
-import cl.coopeuch.tecnico.dto.TareaResponse;
 import cl.coopeuch.tecnico.service.TareaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -5,16 +5,13 @@ import cl.coopeuch.tecnico.dto.TareaMensajeList;
 import cl.coopeuch.tecnico.dto.TareaRequest;
 import cl.coopeuch.tecnico.dto.TareaResponse;
 import cl.coopeuch.tecnico.entity.TareaEntity;
-import cl.coopeuch.tecnico.exception.BaseController;
 import cl.coopeuch.tecnico.exception.ModeloNotFoundException;
 import cl.coopeuch.tecnico.repository.TareaRepository;
 import cl.coopeuch.tecnico.service.TareaService;
 import cl.coopeuch.tecnico.util.Utils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,16 +28,16 @@ public class TareaServiceImpl implements TareaService {
     public TareaMensajeList listarTareas() {
         try {
             List<TareaEntity> list;
-            List<TareaResponse> aa = new ArrayList<>();
+            List<TareaResponse> listaResponse = new ArrayList<>();
             list = tareaRepository.findAll();
             if (list.size()>0) {
-                aa = list.stream().map(xx ->{
+                listaResponse = list.stream().map(xx ->{
                     return TareaResponse.builder()
                             .idTarea(xx.getIdTarea())
                             .descripcion(xx.getDescripcion())
                             .vigente(xx.getVigente()).build();
                 }).collect(Collectors.toList());
-                return TareaMensajeList.builder().listaRetorno(aa).codigo(Utils.codOK).mensaje(Utils.ListaTareaOk).build();
+                return TareaMensajeList.builder().listaRetorno(listaResponse).codigo(Utils.codOK).mensaje(Utils.ListaTareaOk).build();
             } else {
                 return TareaMensajeList.builder().listaRetorno(null).codigo(Utils.codNOK).mensaje(Utils.ListaTareaVacia).build();
             }
