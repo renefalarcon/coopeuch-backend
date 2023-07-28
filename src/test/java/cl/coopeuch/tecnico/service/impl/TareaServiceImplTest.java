@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.when;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -68,6 +69,7 @@ class TareaServiceImplTest {
     void eliminarTarea() {
         TareaEntity tareaEntity = new TareaEntity();
         tareaEntity.setIdTarea(1);
+        willDoNothing().given(tareaRepository).deleteById(1);
         when(this.tareaRepository.findById(1)).thenReturn(Optional.ofNullable(tareaEntity));
         TareaMensaje tareaMensaje = this.tareaService.eliminarTarea(1);
         Assertions.assertNotNull(tareaMensaje);
