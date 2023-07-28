@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,8 @@ public class TareaServiceImpl implements TareaService {
     @Override
     public TareaMensajeList listarTareas() {
         try {
+            String pattern = "dd-MM-yyyy hh:mm:ss";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             List<TareaEntity> list;
             List<TareaResponse> listaResponse = new ArrayList<>();
             list = tareaRepository.findAll();
@@ -35,7 +38,8 @@ public class TareaServiceImpl implements TareaService {
                     return TareaResponse.builder()
                             .idTarea(xx.getIdTarea())
                             .descripcion(xx.getDescripcion())
-                            .vigente(xx.getVigente()).build();
+                            .vigente(xx.getVigente())
+                            .fechaCreacion(simpleDateFormat.format(xx.getFechaCreacion())).build();
                 }).collect(Collectors.toList());
                 return TareaMensajeList.builder().listaRetorno(listaResponse).codigo(Utils.codOK).mensaje(Utils.ListaTareaOk).build();
             } else {
