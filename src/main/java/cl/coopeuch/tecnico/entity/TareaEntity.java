@@ -18,8 +18,6 @@ public class TareaEntity {
 
     @Id
     @Column(name ="ID_TAREA")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@SequenceGenerator(name = "seqTareas", allocationSize = 1, sequenceName = "SEQ_TAREAS")
     private Integer idTarea;
     @Column(name ="DESCRIPCION")
     private String descripcion;
